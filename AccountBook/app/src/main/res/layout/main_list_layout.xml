@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_main_list"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_typeImage"-->
+<!--        android:layout_width="100px"-->
+<!--        android:layout_height="100px"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:src="@drawable/income"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_list_type"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="왜 잘 안보이는걸까?"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textColor="#2196F3"-->
+<!--        />-->
+
+    <TextView
+        android:id="@+id/tv_list_kind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내역"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/tv_list_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="금액이양"
+        android:gravity="right"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
