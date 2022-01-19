@@ -15,14 +15,14 @@ import com.ioad.accountbook.DAO.Content;
 import com.ioad.accountbook.R;
 import com.ioad.accountbook.Util.Share;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
 
     Context mContext;
     int[] imageData;
     String[] nameData;
     Content content;
 
-    public RecyclerAdapter(Context context, int[] data, String[] name) {
+    public DetailAdapter(Context context, int[] data, String[] name) {
         this.mContext = context;
         this.imageData = data;
         this.nameData = name;
@@ -30,14 +30,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @NonNull
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_layout, parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailAdapter.ViewHolder holder, int position) {
         holder.itemImage.setImageResource(imageData[position]);
         holder.itemText.setText(nameData[position]);
     }

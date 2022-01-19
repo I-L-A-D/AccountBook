@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ioad.accountbook.Adapter.RecyclerAdapter;
+import com.ioad.accountbook.Adapter.DetailAdapter;
 import com.ioad.accountbook.DAO.InsertDataRes;
 import com.ioad.accountbook.R;
 import com.ioad.accountbook.SQL.AccountBookDB;
@@ -33,8 +33,8 @@ public class NewDataActivity extends AppCompatActivity {
     private InsertDataRes insertDataRes = new InsertDataRes();
     GridLayoutManager gridLayoutManagerIncome;
     GridLayoutManager gridLayoutManagerExpend;
-    private RecyclerAdapter reAdapterIncome;
-    private RecyclerAdapter reAdapterExport;
+    private DetailAdapter reAdapterIncome;
+    private DetailAdapter reAdapterExport;
 
     InputMethodManager manager;
 
@@ -89,8 +89,8 @@ public class NewDataActivity extends AppCompatActivity {
         exportImgData = insertDataRes.getExportImgData();
         exportNameData = insertDataRes.getExportNameData();
 
-        reAdapterIncome = new RecyclerAdapter(getApplicationContext(), incomeImgData, incomeNameData);
-        reAdapterExport = new RecyclerAdapter(getApplicationContext(), exportImgData, exportNameData);
+        reAdapterIncome = new DetailAdapter(getApplicationContext(), incomeImgData, incomeNameData);
+        reAdapterExport = new DetailAdapter(getApplicationContext(), exportImgData, exportNameData);
 
         rv_income.setAdapter(reAdapterIncome);
         rv_expend.setAdapter(reAdapterExport);

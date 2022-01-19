@@ -2,6 +2,7 @@ package com.ioad.accountbook.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ioad.accountbook.Adapter.MainListAdapter;
+import com.ioad.accountbook.Adapter.MainRecyclerAdapter;
 import com.ioad.accountbook.DAO.Content;
 import com.ioad.accountbook.R;
 import com.ioad.accountbook.SQL.AccountBookDB;
@@ -31,13 +33,18 @@ public class MainActivity extends AppCompatActivity {
     String TAG = getClass().getSimpleName();
 
     CalendarView calendarView;
-    ListView lv_mainList_income, lv_mainList_export;
+//    ListView lv_mainList_income, lv_mainList_export;
     TextView tv_data, tv_now_month, tv_income_tot, tv_export_tot, tv_month_income_tot, tv_month_expend_tot, tv_difference_tot, tv_chart;
     ImageButton btn_newData;
     LinearLayout ll_tot;
 
-    MainListAdapter incomeAdapter;
-    MainListAdapter exportAdapter;
+    RecyclerView rv_mainList_income, rv_mainList_expend;
+
+//    MainListAdapter incomeAdapter;
+//    MainListAdapter exportAdapter;
+
+    MainRecyclerAdapter incomeAdapter;
+    MainRecyclerAdapter exportAdapter;
 
     AccountBookDB dataBase;
 
@@ -58,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         dataBase = new AccountBookDB(getApplicationContext());
 
         calendarView = findViewById(R.id.calendarView);
-        lv_mainList_income = findViewById(R.id.lv_mainList_income);
-        lv_mainList_export = findViewById(R.id.lv_mainList_export);
+//        lv_mainList_income = findViewById(R.id.lv_mainList_income);
+//        lv_mainList_export = findViewById(R.id.lv_mainList_export);
         tv_data = findViewById(R.id.tv_data);
         btn_newData = findViewById(R.id.btn_newData);
         tv_now_month = findViewById(R.id.tv_now_month);
@@ -70,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         tv_month_expend_tot = findViewById(R.id.tv_month_expend_tot);
         tv_difference_tot = findViewById(R.id.tv_difference_tot);
         tv_chart = findViewById(R.id.tv_chart);
+
+        rv_mainList_income = findViewById(R.id.rv_mainList_income);
+        rv_mainList_expend = findViewById(R.id.rv_mainList_expend);
 
         setNowMonth(nowMonth);
         getDetailDate(selectDay);
@@ -187,45 +197,58 @@ public class MainActivity extends AppCompatActivity {
                 // 수입, 지출 둘다 없을경우
                 tv_data.setText("데이터가 없습니다.");
                 tv_data.setVisibility(View.VISIBLE);
-                lv_mainList_income.setVisibility(View.INVISIBLE);
-                lv_mainList_export.setVisibility(View.INVISIBLE);
+//                lv_mainList_income.setVisibility(View.INVISIBLE);
+//                lv_mainList_export.setVisibility(View.INVISIBLE);
+                rv_mainList_income.setVisibility(View.INVISIBLE);
+                rv_mainList_expend.setVisibility(View.INVISIBLE);
                 ll_tot.setVisibility(View.INVISIBLE);
 
             } else if (incomeData.isEmpty() && !exportData.isEmpty()) {
                 // 지출만 있을 경우
                 tv_data.setVisibility(View.INVISIBLE);
-                lv_mainList_income.setVisibility(View.INVISIBLE);
-                lv_mainList_export.setVisibility(View.VISIBLE);
+//                lv_mainList_income.setVisibility(View.INVISIBLE);
+//                lv_mainList_export.setVisibility(View.VISIBLE);
+                rv_mainList_income.setVisibility(View.INVISIBLE);
+                rv_mainList_expend.setVisibility(View.VISIBLE);
                 ll_tot.setVisibility(View.VISIBLE);
                 tv_income_tot.setText(incomeTotStr + " 원");
                 tv_export_tot.setText(exportTotStr + " 원");
 
-                exportAdapter = new MainListAdapter(MainActivity.this, R.layout.main_list_layout, exportData);
-                lv_mainList_export.setAdapter(exportAdapter);
+//                exportAdapter = new MainListAdapter(MainActivity.this, R.layout.main_list_layout, exportData);
+//                lv_mainList_export.setAdapter(exportAdapter);
+                exportAdapter = new MainRecyclerAdapter(MainActivity.this, exportData);
+                rv_mainList_expend.setAdapter(exportAdapter);
 
             } else if (!incomeData.isEmpty() && exportData.isEmpty()) {
                 // 수입만 있을 경우
                 tv_data.setVisibility(View.INVISIBLE);
-                lv_mainList_income.setVisibility(View.VISIBLE);
-                lv_mainList_export.setVisibility(View.INVISIBLE);
+//                lv_mainList_income.setVisibility(View.VISIBLE);
+//                lv_mainList_export.setVisibility(View.INVISIBLE);
                 ll_tot.setVisibility(View.VISIBLE);
-                incomeAdapter = new MainListAdapter(MainActivity.this,R.layout.main_list_layout, incomeData);
-                lv_mainList_income.setAdapter(incomeAdapter);
                 tv_income_tot.setText(incomeTotStr + " 원");
                 tv_export_tot.setText(exportTotStr + " 원");
+
+//                incomeAdapter = new MainListAdapter(MainActivity.this,R.layout.main_list_layout, incomeData);
+//                lv_mainList_income.setAdapter(incomeAdapter);
+                incomeAdapter = new MainRecyclerAdapter(MainActivity.this, incomeData);
+                rv_mainList_income.setAdapter(incomeAdapter);
             } else {
                 // 수입, 지출 둘다 있을 경우
                 tv_data.setVisibility(View.INVISIBLE);
-                lv_mainList_income.setVisibility(View.VISIBLE);
-                lv_mainList_export.setVisibility(View.VISIBLE);
+//                lv_mainList_income.setVisibility(View.VISIBLE);
+//                lv_mainList_export.setVisibility(View.VISIBLE);
                 ll_tot.setVisibility(View.VISIBLE);
-                incomeAdapter = new MainListAdapter(MainActivity.this,R.layout.main_list_layout, incomeData);
-                exportAdapter = new MainListAdapter(MainActivity.this, R.layout.main_list_layout, exportData);
-                lv_mainList_income.setAdapter(incomeAdapter);
-                lv_mainList_export.setAdapter(exportAdapter);
-
                 tv_income_tot.setText(incomeTotStr + " 원");
                 tv_export_tot.setText(exportTotStr + " 원");
+
+//                incomeAdapter = new MainListAdapter(MainActivity.this,R.layout.main_list_layout, incomeData);
+//                exportAdapter = new MainListAdapter(MainActivity.this, R.layout.main_list_layout, exportData);
+//                lv_mainList_income.setAdapter(incomeAdapter);
+//                lv_mainList_export.setAdapter(exportAdapter);
+                exportAdapter = new MainRecyclerAdapter(MainActivity.this, exportData);
+                rv_mainList_expend.setAdapter(exportAdapter);
+                incomeAdapter = new MainRecyclerAdapter(MainActivity.this, incomeData);
+                rv_mainList_income.setAdapter(incomeAdapter);
             }
         } catch (Exception e) {
             e.printStackTrace();

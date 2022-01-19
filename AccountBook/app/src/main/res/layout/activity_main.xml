@@ -187,20 +187,34 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <ListView
-                android:id="@+id/lv_mainList_income"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_mainList_income"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
                 />
-            <ListView
-                android:id="@+id/lv_mainList_export"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_mainList_expend"
                 android:layout_width="0px"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
                 />
+<!--            <ListView-->
+<!--                android:id="@+id/lv_mainList_income"-->
+<!--                android:layout_width="0px"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:padding="5dp"-->
+<!--                />-->
+<!--            <ListView-->
+<!--                android:id="@+id/lv_mainList_export"-->
+<!--                android:layout_width="0px"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:padding="5dp"-->
+<!--                />-->
         </LinearLayout>
         <TextView
             android:id="@+id/tv_data"
