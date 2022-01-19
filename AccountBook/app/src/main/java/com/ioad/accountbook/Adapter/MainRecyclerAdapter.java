@@ -1,6 +1,7 @@
 package com.ioad.accountbook.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ioad.accountbook.Activity.UpdateDataActivity;
 import com.ioad.accountbook.DAO.Content;
 import com.ioad.accountbook.R;
 import com.ioad.accountbook.Util.Share;
@@ -62,6 +64,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
+                    Toast.makeText(mContext, "click", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, UpdateDataActivity.class);
+                    intent.putExtra("KIND", data.get(position).getKind());
+                    intent.putExtra("AMOUNT", data.get(position).getAmount());
+                    mContext.startActivity(intent);
                 }
             });
 

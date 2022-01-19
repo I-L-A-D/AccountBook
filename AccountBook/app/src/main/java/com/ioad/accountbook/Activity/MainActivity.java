@@ -2,6 +2,7 @@ package com.ioad.accountbook.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -33,20 +34,26 @@ public class MainActivity extends AppCompatActivity {
     String TAG = getClass().getSimpleName();
 
     CalendarView calendarView;
-//    ListView lv_mainList_income, lv_mainList_export;
+    //    ListView lv_mainList_income, lv_mainList_export;
     TextView tv_data, tv_now_month, tv_income_tot, tv_export_tot, tv_month_income_tot, tv_month_expend_tot, tv_difference_tot, tv_chart;
     ImageButton btn_newData;
     LinearLayout ll_tot;
 
     RecyclerView rv_mainList_income, rv_mainList_expend;
 
-//    MainListAdapter incomeAdapter;
+    //    MainListAdapter incomeAdapter;
 //    MainListAdapter exportAdapter;
+    RecyclerView.LayoutManager incomeLayoutManager;
+    RecyclerView.LayoutManager exportLayoutManager;
+    RecyclerView.Adapter incomeAdapter;
+    RecyclerView.Adapter exportAdapter;
 
-    MainRecyclerAdapter incomeAdapter;
-    MainRecyclerAdapter exportAdapter;
+//    MainRecyclerAdapter incomeAdapter;
+//    MainRecyclerAdapter exportAdapter;
 
     AccountBookDB dataBase;
+    ArrayList<Content> incomeData = new ArrayList<>();
+    ArrayList<Content> exportData = new ArrayList<>();
 
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -81,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
         rv_mainList_income = findViewById(R.id.rv_mainList_income);
         rv_mainList_expend = findViewById(R.id.rv_mainList_expend);
 
+        incomeLayoutManager = new LinearLayoutManager(this);
+        exportLayoutManager = new LinearLayoutManager(this);
+        rv_mainList_income.setLayoutManager(incomeLayoutManager);
+        rv_mainList_expend.setLayoutManager(exportLayoutManager);
+
         setNowMonth(nowMonth);
         getDetailDate(selectDay);
 
@@ -104,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 getDetailDate(selectDay);
 
                 Toast.makeText(getApplicationContext(), selectDay, Toast.LENGTH_SHORT).show();
+                incomeData.clear();
+                exportData.clear();
                 getListData();
                 getTotalData();
             }
@@ -136,8 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getListData() {
-        ArrayList<Content> incomeData = new ArrayList<>();
-        ArrayList<Content> exportData = new ArrayList<>();
+
         String incomeTotStr = null;
         String exportTotStr = null;
         int incomeTot = 0;
@@ -163,12 +176,14 @@ public class MainActivity extends AppCompatActivity {
                 Content content = new Content(type, amount, kind);
 
                 if (type.equals("income")) {
+
                     incomeData.add(content);
                     incomeTot += Integer.parseInt(amount);
 
                     DecimalFormat myFormatter = new DecimalFormat("###,###");
                     incomeTotStr = myFormatter.format(incomeTot);
                 } else {
+
                     exportData.add(content);
 
                     exportTot += Integer.parseInt(amount);
