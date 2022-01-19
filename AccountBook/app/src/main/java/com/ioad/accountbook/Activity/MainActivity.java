@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        incomeData.clear();
+        exportData.clear();
         getListData();
         getTotalData();
     }
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             DB = dataBase.getReadableDatabase();
-            query = "SELECT m_type, m_amount, m_detail FROM moneybook " +
+            query = "SELECT seq_num, m_type, m_amount, m_detail FROM moneybook " +
                     "WHERE m_year = '" + year + "'" +
                     "AND m_month = '" + month + "' " +
                     "AND m_day = '" + day + "';";
@@ -169,11 +171,13 @@ public class MainActivity extends AppCompatActivity {
             Cursor cursor = DB.rawQuery(query, null);
             Log.e(TAG, query);
             while (cursor.moveToNext()) {
-                String type = cursor.getString(0);
-                String amount = cursor.getString(1);
-                String kind = cursor.getString(2);
+                String seq = cursor.getString(0);
+                String type = cursor.getString(1);
+                String amount = cursor.getString(2);
+                String kind = cursor.getString(3);
 
-                Content content = new Content(type, amount, kind);
+                Log.e(TAG, seq);
+                Content content = new Content(seq, type, amount, kind, selectDay);
 
                 if (type.equals("income")) {
 

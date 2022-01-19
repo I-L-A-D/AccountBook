@@ -24,6 +24,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     Context mContext;
     ArrayList<Content> data;
+    String type;
+    String selectDay;
 
     public MainRecyclerAdapter(Context mContext, ArrayList<Content> data) {
         this.mContext = mContext;
@@ -45,6 +47,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         holder.tv_list_amount.setText(amount);
         holder.tv_list_kind.setText(data.get(position).getKind());
+        type = data.get(position).getType();
+        selectDay = data.get(position).getSelectDay();
     }
 
     @Override
@@ -68,6 +72,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                     Intent intent = new Intent(mContext, UpdateDataActivity.class);
                     intent.putExtra("KIND", data.get(position).getKind());
                     intent.putExtra("AMOUNT", data.get(position).getAmount());
+                    intent.putExtra("TYPE", type);
+                    intent.putExtra("SELECT_DAY", selectDay);
                     mContext.startActivity(intent);
                 }
             });
